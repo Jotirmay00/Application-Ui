@@ -11,6 +11,7 @@ const SignUpScreen = () => {
  
     const navigation = useNavigation();
   const onRegisterPressed = () => {
+    navigation.navigate('Home');
 
   }
 
@@ -26,17 +27,12 @@ const SignUpScreen = () => {
     <Text style={styles.title}>Create an Account </Text>
 
     <CustomInput
-      name="UserID" 
-      placeholder="UserID"
+      name="Email-ID" 
+      placeholder="Email-ID"
        control={control}
-       
+       rules ={{required: 'Email-ID is required'}}
        />
 
-       <CustomInput 
-      placeholder="Username"
-      name="Username"
-      control = {control}
-      />
 
 
       <CustomInput 
@@ -44,6 +40,7 @@ const SignUpScreen = () => {
        name = "Password"
        control = {control}
        secureTextEntry = {true}
+       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
      <CustomInput 
@@ -51,6 +48,7 @@ const SignUpScreen = () => {
        name = "Confirm Password"
        control = {control}
        secureTextEntry = {true}
+       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
        <CustomButton

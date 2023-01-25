@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
     container : {
         
-
+       
         width : '50%',
         padding : 15 , 
         marginVertical : 5 ,

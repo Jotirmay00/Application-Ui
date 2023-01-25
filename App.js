@@ -11,15 +11,21 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 
 import Navigation from './src/navigation';
 
 const App = () => { 
   return (
+    <TouchableWithoutFeedback onPress={() =>{
+      Keyboard.dismiss();
+    }}>
     <SafeAreaView style={styles.root}>
         <Navigation/>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 

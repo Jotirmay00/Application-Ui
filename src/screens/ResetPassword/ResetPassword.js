@@ -28,12 +28,14 @@ const onSignInPressed = () => {
       placeholder="UserID/Email-Id"
        name="EmailId"
        control = {control}
+       rules ={{required: 'Email-ID is required'}}
       />
 
      <CustomInput 
       placeholder="Sequrity Code"
        name="code"
        control = {control}
+       rules ={{required: 'Please enter the sequrity code'}}
        />
 
       <CustomInput 
@@ -41,6 +43,7 @@ const onSignInPressed = () => {
        name ="new password"
        control = {control}
        secureTextEntry = {true}
+       rules = {{required : 'Please enter a new password' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
        <CustomInput 
@@ -48,6 +51,7 @@ const onSignInPressed = () => {
        name = "Confirm password"
        control={control}
        secureTextEntry = {true}
+       rules = {{required : 'Please confirm your password' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
 <CustomButton

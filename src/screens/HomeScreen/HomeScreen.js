@@ -1,11 +1,21 @@
-import { View, Text,StyleSheet } from 'react-native'
+import { View, Text,StyleSheet,BackHandler, } from 'react-native'
 import React from 'react'
 import CustomButton from '../../components/CustomButton'
 
 const HomeScreen = () => {
 
+  
+
 const onCallPressed = () =>{
 
+}
+
+const onReceivePressed = () =>{
+
+}
+
+const Logout =() => {
+  BackHandler.exitApp();
 }
 
   return (
@@ -16,7 +26,22 @@ const onCallPressed = () =>{
       text="Call"
       type='SECONDARY'
        onPress= {onCallPressed}/>
+
+    <CustomButton 
+      text="Receive"
+      type='SECONDARY'
+       onPress= {onReceivePressed}/>
+
+
+     <CustomButton 
+      text="Log Out"
+      type='TERTIARY'
+       onPress= {Logout}/>
+    
     </View>
+
+ 
+
   )
 }
 
@@ -34,6 +59,7 @@ const styles = StyleSheet.create(
               color : '#003399',
               margin : 10,
           },
+          
          
     }
 )

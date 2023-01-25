@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image,useWindowDimensions,ScrollView } from 'react-native'
 import React,{useState} from 'react'
-import Logo from '../../../assets/images/Logo.png'
+import Logo from '../../assets/images/Logo.png'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import {useNavigation} from '@react-navigation/native'
@@ -36,10 +36,10 @@ const {control ,handleSubmit,formState:{errors},} = useForm();
       <Image source = {Logo}  style = {[styles.logo, {height : height * 0.3 } ]} resizeMode="contain"/>
       
       <CustomInput
-      name="UserID" 
-      placeholder="UserID"
+      name="EmailID" 
+      placeholder="Email ID"
        control={control}
-       rules ={{required: 'UserID is required'}}
+       rules ={{required: 'Email-ID is required'}}
        />
 
       <CustomInput 
@@ -47,7 +47,7 @@ const {control ,handleSubmit,formState:{errors},} = useForm();
       placeholder="Password"
        control={control}
        secureTextEntry = {true}
-       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 chars'} }}
+       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
        <CustomButton
