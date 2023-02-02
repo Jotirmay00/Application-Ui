@@ -31,12 +31,7 @@ const onSignInPressed = () => {
        rules ={{required: 'Email-ID is required'}}
       />
 
-     <CustomInput 
-      placeholder="Sequrity Code"
-       name="code"
-       control = {control}
-       rules ={{required: 'Please enter the sequrity code'}}
-       />
+     
 
       <CustomInput 
       placeholder=" New Password"

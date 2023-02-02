@@ -33,14 +33,21 @@ const Logout =() => {
        onPress= {onReceivePressed}/>
 
 
-     <CustomButton 
-      text="Log Out"
-      type='TERTIARY'
-       onPress= {Logout}/>
+      <Text
+        onPress={Logout}
+        style={{
+          alignSelf : 'center',
+          width: '100%',
+          textAlign: 'center',
+          color: 'red',
+          marginTop: 'auto',
+          marginVertical: 20,
+          fontSize: 20,
+        }}>
+        Log out
+      </Text>
     
     </View>
-
- 
 
   )
 }
@@ -48,9 +55,10 @@ const Logout =() => {
 const styles = StyleSheet.create(
     {
         root :{
+          flex: 1,
             alignItems: 'center',
             padding : 20,
-            
+            flexDirection : 'column',
           },
       
           title :{
@@ -59,8 +67,8 @@ const styles = StyleSheet.create(
               color : '#003399',
               margin : 10,
           },
+
           
-         
     }
 )
 
