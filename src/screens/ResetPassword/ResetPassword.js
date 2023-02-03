@@ -7,7 +7,7 @@ import {useForm} from 'react-hook-form'
 
 const ResetPassword = () => {
 
-  const {control ,handleSubmit,formState:{errors},} = useForm();
+  const {control ,handleSubmit,} = useForm();
 
 const navigation = useNavigation();
 
@@ -16,8 +16,11 @@ const onSignInPressed = () => {
   }
 
   const onResetPressed = () => {
-    navigation.navigate('Sign In');
+    navigation.navigate('New Password');
   }
+
+  const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 
   return (
@@ -28,29 +31,15 @@ const onSignInPressed = () => {
       placeholder="UserID/Email-Id"
        name="EmailId"
        control = {control}
-       rules ={{required: 'Email-ID is required'}}
+       rules={{
+        required: 'Email is required',
+        pattern: {value: EMAIL_REGEX, message: 'Email is invalid'},
+      }}
       />
-
-     
-
-      <CustomInput 
-      placeholder=" New Password"
-       name ="new password"
-       control = {control}
-       secureTextEntry = {true}
-       rules = {{required : 'Please enter a new password' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
-       />
-
-       <CustomInput 
-      placeholder="Confirm Password"
-       name = "Confirm password"
-       control={control}
-       secureTextEntry = {true}
-       rules = {{required : 'Please confirm your password' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
-       />
+ 
 
 <CustomButton
- text="Reset Password"
+ text="Send Code"
   onPress= {handleSubmit(onResetPressed)}/>
     
     <CustomButton

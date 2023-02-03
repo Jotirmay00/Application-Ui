@@ -6,12 +6,14 @@ import {useNavigation} from '@react-navigation/native'
 import {useForm} from 'react-hook-form'
 
 const SignUpScreen = () => {
-  const {control ,handleSubmit,formState:{errors},} = useForm();
+  const {control ,handleSubmit,watch,} = useForm();
 
+  const pwd = watch('password');
  
     const navigation = useNavigation();
+    
   const onRegisterPressed = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Confirm Email');
 
   }
 
@@ -19,6 +21,9 @@ const SignUpScreen = () => {
     navigation.navigate('Sign In');
   }
 
+
+  const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -30,7 +35,10 @@ const SignUpScreen = () => {
       name="Email-ID" 
       placeholder="Email-ID"
        control={control}
-       rules ={{required: 'Email-ID is required'}}
+       rules={{
+        required: 'Email is required',
+        pattern: {value: EMAIL_REGEX, message: 'Email is invalid'},
+      }}
        />
 
 
@@ -40,7 +48,9 @@ const SignUpScreen = () => {
        name = "Password"
        control = {control}
        secureTextEntry = {true}
-       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
+       rules = {{
+        required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'}
+       }}
        />
 
      <CustomInput 
@@ -48,7 +58,9 @@ const SignUpScreen = () => {
        name = "Confirm Password"
        control = {control}
        secureTextEntry = {true}
-       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
+       rules={{
+        required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'}
+      }}
        />
 
        <CustomButton

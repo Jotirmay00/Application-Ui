@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image,useWindowDimensions,ScrollView } from 'react-native'
+import { View, Text,Button, StyleSheet, Image,useWindowDimensions,ScrollView } from 'react-native'
 import React,{useState} from 'react'
 import Logo from '../../assets/images/Logo.png'
 import CustomInput from '../../components/CustomInput'
@@ -8,7 +8,7 @@ import {useForm,Controller} from 'react-hook-form'
 
 
 const SignInScreen = () => {
-const {control ,handleSubmit,formState:{errors},} = useForm();
+const {control ,handleSubmit,} = useForm();
 
 
   const {height} = useWindowDimensions(); 
@@ -28,6 +28,9 @@ const {control ,handleSubmit,formState:{errors},} = useForm();
     navigation.navigate('Sign Up');
   }
 
+  const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -39,7 +42,10 @@ const {control ,handleSubmit,formState:{errors},} = useForm();
       name="EmailID" 
       placeholder="Email ID"
        control={control}
-       rules ={{required: 'Email-ID is required'}}
+       rules={{
+        required: 'Email is required',
+        pattern: {value: EMAIL_REGEX, message: 'Email is invalid'},
+      }}
        />
 
       <CustomInput 
@@ -50,6 +56,7 @@ const {control ,handleSubmit,formState:{errors},} = useForm();
        rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
+    
        <CustomButton
         text="Sign In" 
        onPress={handleSubmit(onSignInPressed)}/>
@@ -76,7 +83,7 @@ const styles =  StyleSheet.create(
   {
     root :{
       alignItems: 'center',
-      padding : 20,
+      padding : 10,
       
     },
 
@@ -85,6 +92,13 @@ const styles =  StyleSheet.create(
       maxWidth : 300,
       maxHeight : 200,
     },
+
+    btn : {
+      width :100,
+      marginHorizontal : 10 ,
+      padding : 20,
+    }
+
 
    
   }
