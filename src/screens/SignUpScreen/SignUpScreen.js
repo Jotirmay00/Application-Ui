@@ -1,9 +1,12 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView,Alert } from 'react-native'
 import React,{useState} from 'react'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import {useNavigation} from '@react-navigation/native'
 import {useForm} from 'react-hook-form'
+import Auth from 'aws-amplify'
+
+
 
 const SignUpScreen = () => {
   const {control ,handleSubmit,watch,} = useForm();
@@ -12,11 +15,20 @@ const SignUpScreen = () => {
  
     const navigation = useNavigation();
     
-  const onRegisterPressed = () => {
-    navigation.navigate('Confirm Email');
-
-  }
-
+    const onRegisterPressed = async data => {
+      const {password, email} = data;
+      try {
+        await Auth.signUp({
+          email,
+          password,
+          
+        });
+  
+        navigation.navigate('ConfirmEmail');
+      } catch (e) {
+        Alert.alert('Oops', e.message);
+      }
+    };
   const onSignInPressed = () => {
     navigation.navigate('Sign In');
   }
@@ -32,7 +44,7 @@ const SignUpScreen = () => {
     <Text style={styles.title}>Create an Account </Text>
 
     <CustomInput
-      name="Email-ID" 
+      name="email" 
       placeholder="Email-ID"
        control={control}
        rules={{
@@ -45,7 +57,7 @@ const SignUpScreen = () => {
 
       <CustomInput 
       placeholder="Password"
-       name = "Password"
+       name = "psassword"
        control = {control}
        secureTextEntry = {true}
        rules = {{

@@ -1,9 +1,12 @@
-import { View, Text,ScrollView,StyleSheet } from 'react-native'
+import { View, Text,ScrollView,StyleSheet,Alert } from 'react-native'
 import React from 'react'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
+import Auth from 'aws-amplify'
+
+
 
 const ConfirmEmailScreen = () => {
 
@@ -11,13 +14,24 @@ const ConfirmEmailScreen = () => {
 
     const navigation = useNavigation();
 
-const onResendPress = () =>{
+    const onResendPress = async () => {
+      try {
+        await Auth.resendSignUp(email);
+        Alert.alert('Success', 'Code was resent to your email');
+      } catch (e) {
+        Alert.alert('Oops', e.message);
+      }
+    };
 
-}
+const onConfirmPressed = async data => {
+  try {
+    await Auth.confirmSignUp(data.email, data.code);
+    navigation.navigate('SignIn');
+  } catch (e) {
+    Alert.alert('Oops', e.message);
+  }
+};
 
-const onConfirmPressed =() => {
-navigation.navigate('Home')
-}
 
 const onSignInPress =() => {
     navigation.navigate('Sign In')
@@ -32,7 +46,7 @@ const onSignInPress =() => {
         <Text style={styles.title}>Confirm your email</Text>
 
         <CustomInput
-          name="Email"
+          name="email"
           control={control}
           placeholder="Email Id"
           rules={{
@@ -49,7 +63,9 @@ const onSignInPress =() => {
           }}
         />
 
-        <CustomButton text="Confirm" onPress={handleSubmit(onConfirmPressed)} />
+        <CustomButton
+         text="Confirm"
+          onPress={handleSubmit(onConfirmPressed)} />
 
         <CustomButton
           text="Resend code"

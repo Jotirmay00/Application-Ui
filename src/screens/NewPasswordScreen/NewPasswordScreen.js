@@ -1,9 +1,11 @@
-import { View, Text,StyleSheet } from 'react-native'
+import { View, Text,StyleSheet,Alert } from 'react-native'
 import React from 'react'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
+import Auth from 'aws-amplify'
+
 
 const NewPasswordScreen = () => {
 
@@ -12,12 +14,17 @@ const NewPasswordScreen = () => {
 const navigation = useNavigation();
 
 const onSignInPressed = () => {
-    navigation.navigate('Sign Up');
-  }
-
-  const onResetPressed = () => {
     navigation.navigate('Sign In');
   }
+
+  const onResetPressed = async data => {
+    try {
+      await Auth.forgotPasswordSubmit(data.email, data.code, data.password);
+      navigation.navigate('Sign In');
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
+  };
 
 
     const EMAIL_REGEX =
@@ -29,7 +36,7 @@ const onSignInPressed = () => {
 
     <CustomInput 
     placeholder="UserID/Email-Id"
-     name="EmailId"
+     name="email"
      control = {control}
      rules={{
       required: 'Email is required',
@@ -39,7 +46,7 @@ const onSignInPressed = () => {
 
    <CustomInput 
     placeholder="Code"
-     name = "Code"
+     name = "code"
      control={control}
      secureTextEntry = {true}
      rules = {{required : 'Please enter your code'}}
@@ -47,7 +54,7 @@ const onSignInPressed = () => {
 
     <CustomInput 
     placeholder=" New Password"
-     name ="new password"
+     name ="password"
      control = {control}
      secureTextEntry = {true}
      rules = {{required : 'Please enter a new password' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}

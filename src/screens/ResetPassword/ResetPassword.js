@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet,Alert } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {useNavigation} from '@react-navigation/native'
 import {useForm} from 'react-hook-form'
+import Auth from 'aws-amplify'
+
 
 const ResetPassword = () => {
 
@@ -15,10 +17,14 @@ const onSignInPressed = () => {
     navigation.navigate('Sign Up');
   }
 
-  const onResetPressed = () => {
-    navigation.navigate('New Password');
-  }
-
+  const onResetPressed = async data => {
+    try {
+      await Auth.forgotPassword(data.email);
+      navigation.navigate('NewPasswordScreen');
+    } catch (e) {
+      Alert.alert('Oops', e.message);
+    }
+  };
   const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -29,7 +35,7 @@ const onSignInPressed = () => {
 
       <CustomInput 
       placeholder="UserID/Email-Id"
-       name="EmailId"
+       name="email"
        control = {control}
        rules={{
         required: 'Email is required',

@@ -1,6 +1,7 @@
 import { View, Text,StyleSheet,BackHandler, } from 'react-native'
 import React from 'react'
 import CustomButton from '../../components/CustomButton'
+import Auth from 'aws-amplify'
 
 const HomeScreen = () => {
 
@@ -15,6 +16,7 @@ const onReceivePressed = () =>{
 }
 
 const Logout =() => {
+  Auth.signOut();
   BackHandler.exitApp();
 }
 
