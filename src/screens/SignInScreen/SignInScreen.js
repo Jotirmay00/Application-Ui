@@ -49,7 +49,10 @@ const [loading,setLoading] = useState(false);
     <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.root}>
       
-      <Image source = {Logo}  style = {[styles.logo, {height : height * 0.3 } ]} resizeMode="contain"/>
+      <Image source = {Logo} 
+       style = {[styles.logo,
+         {height : height * 0.3 } ]}
+          resizeMode="contain"/>
       
       <CustomInput
       name="email" 
@@ -66,7 +69,8 @@ const [loading,setLoading] = useState(false);
       placeholder="Password"
        control={control}
        secureTextEntry = {true}
-       rules = {{required : 'Password is required' , minLength :{value : 8 ,message :'Password must be 8 characters'} }}
+       rules = {{required : 'Password is required' ,
+        minLength :{value : 8 ,message :'Password must be 8 characters'} }}
        />
 
     
